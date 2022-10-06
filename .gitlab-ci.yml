@@ -26,21 +26,21 @@ Build and Push:
   script:
     - echo "Build and Push Docker Image"
   rules:
-    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
 
 Staging Plan:
   stage: Staging Plan
   script:
     - echo "Run Terraform Plan for Staging"
   rules:
-    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
 
 Staging Apply:
   stage: Staging Apply
   script:
     - echo "Run Terraform Apply for Staging"
   rules:
-    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'  
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'  
 
 Production Plan:
   stage: Production Plan
@@ -61,7 +61,7 @@ Staging Destroy:
   script:
     - echo "Run Terraform Destroy for Staging"
   rules:
-    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
       when: manual
 
 Production Destroy:
