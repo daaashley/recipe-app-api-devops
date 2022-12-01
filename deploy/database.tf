@@ -31,7 +31,7 @@ resource "aws_db_instance" "main" {
   storage_type            = "gp2"
   engine                  = "postgres"
   engine_version          = "13.7"
-  instance_class          = "db.t2.micro"
+  instance_class          = "db.t3.micro"
   db_subnet_group_name    = aws_db_subnet_group.main.name
   password                = var.db_password
   username                = var.db_username
