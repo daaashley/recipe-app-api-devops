@@ -22,7 +22,8 @@ resource "aws_security_group" "rds" {
     to_port   = 5432
     // Access to our database is only approved for these security groups
     security_groups = [
-      aws_security_group.bastion.id
+      aws_security_group.bastion.id,
+      aws_security_group.ecs_service.id
     ]
   }
   tags = local.common_tags
