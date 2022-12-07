@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+from socket import gethostname, gethostbyname #retrieves name/host of ecs task
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,6 +33,9 @@ ALLOWED_HOSTS.extend(
         os.environ.get('ALLOWED_HOSTS','').split(',')
     )
 )
+# if we are running in AWS ECS, we added the host to allowed hosts
+if os.environ.get('AWS_EXECUTION_ENV'):
+    ALLOWED_HOSTS.append(gethostbyname(gethostname()))
 
 
 # Application definition
