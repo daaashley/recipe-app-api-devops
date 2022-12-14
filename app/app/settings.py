@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+from socket import gethostname, gethostbyname #retrieves name/host of ecs task
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,6 +33,9 @@ ALLOWED_HOSTS.extend(
         os.environ.get('ALLOWED_HOSTS','').split(',')
     )
 )
+# if we are running in AWS ECS, we added the host to allowed hosts
+if os.environ.get('AWS_EXECUTION_ENV'):
+    ALLOWED_HOSTS.append(gethostbyname(gethostname()))
 
 
 # Application definition
@@ -139,3 +142,12 @@ MEDIA_ROOT = '/vol/web/media'
 STATIC_ROOT = '/vol/web/static'
 
 AUTH_USER_MODEL = 'core.User'
+
+S3_STORAGE_BACKEND = bool(int(os.environ.get('S3_STORAGE_BACKEND',1)))
+if S3_STORAGE_BACKEND is True:
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_DEFAULT_ACL = 'public-read'
+AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.environ.get('S3_STORAGE_BUCKET_REGION','us-east-1')
+AWS_QUERYSTRING_AUTH = False
