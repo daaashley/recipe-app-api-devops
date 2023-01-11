@@ -75,7 +75,7 @@ RUN npm install --global yarn
 
 WORKDIR /app/client
 
-COPY client/.npmrc client/yarn.lock client/tsconfig.json client/package.json /app/client/
+COPY client/src client/yarn.lock client/tsconfig.json client/package.json /app/client/
 RUN  yarn
 
 COPY client /app/client/
@@ -83,7 +83,7 @@ RUN  yarn build
 
 COPY yoyo.ini /app/
 COPY migrations /app/migrations
-COPY src /app/src
+COPY app /app/src
 
 
 CMD ["uvicorn", "--host", "0.0.0.0", "--port", "5000", "src.app:app"]
