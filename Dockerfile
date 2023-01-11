@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:experimental
 FROM python:3.9.10-slim as python-base
 LABEL maintainer="David Ashley"
 
