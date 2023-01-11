@@ -64,10 +64,10 @@ RUN npm install --global yarn
 WORKDIR /app/client
 
 COPY client/.npmrc client/yarn.lock client/tsconfig.json client/package.json /app/client/
-RUN --mount=type=secret,id=auto-devops-build-secrets,dst=/tmp/auto-devops-build-secrets . /tmp/auto-devops-build-secrets && yarn
+RUN  yarn
 
 COPY client /app/client/
-RUN --mount=type=secret,id=auto-devops-build-secrets,dst=/tmp/auto-devops-build-secrets . /tmp/auto-devops-build-secrets && yarn build && yarn export
+RUN  yarn build
 
 COPY yoyo.ini /app/
 COPY migrations /app/migrations
