@@ -40,15 +40,15 @@ RUN apt-get update \
       && apt-get install --no-install-recommends -y \
       # deps for installing poetry
       curl \
+      build-essential \
       postgresql-client \
-      jpeg-dev \
       gcc \
       libc-dev \
-      linux-headers \
-      postgresql-dev  \
       musl-dev \
-      zlib \
-      zlib-dev
+      libpq-dev \
+      python3-dev \
+      procps \
+      unzip
 
 
 # POETRY
