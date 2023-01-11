@@ -35,11 +35,20 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 FROM python-base as builder-base
 
 # LINUX
-COPY ./requirements.txt /requirements.txt
-RUN apk add --update --no-cache postgresql-client jpeg-dev
-RUN apk add --update --no-cache --virtual .tmp-build-deps \
-      gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev curl
-RUN apk del .tmp-build-deps
+RUN apt-get update \
+      && apt-get install --no-install-recommends -y \
+      # deps for installing poetry
+      curl \
+      postgresql-client \
+      jpeg-dev \
+      gcc \
+      libc-dev \
+      linux-headers \
+      postgresql-dev  \
+      musl-dev \
+      zlib \
+      zlib-dev
+
 
 # POETRY
 RUN curl -sSLcurl -sSL https://install.python-poetry.org | python3 -
@@ -58,7 +67,7 @@ COPY --from=builder-base $poetry_home $poetry_home
 COPY --from=builder-base /usr/lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-RUN apk add -y nodejs
+RUN apt-get install -y nodejs
 RUN npm install --global yarn
 
 WORKDIR /app/client
