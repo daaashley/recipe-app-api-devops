@@ -59,7 +59,9 @@ WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
 RUN poetry run pip install --upgrade pip
-RUN poetry install
+RUN set -e && \
+      set -x && \
+      poetry install
 
 ###################################### Runtime Image ##########################################
 FROM python-base as fastapi-app
