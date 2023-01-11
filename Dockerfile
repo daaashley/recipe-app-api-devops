@@ -81,6 +81,8 @@ RUN  yarn
 COPY client /app/client/
 RUN  yarn build
 
+WORKDIR /app/
+
 COPY yoyo.ini /app/
 COPY migrations /app/migrations
 COPY app /app/src
