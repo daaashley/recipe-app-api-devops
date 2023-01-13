@@ -85,7 +85,7 @@ WORKDIR /app/
 
 COPY yoyo.ini /app/
 COPY migrations /app/migrations
-COPY app /app/src
+COPY app /app/app
 
 
 CMD ["uvicorn", "--host", "0.0.0.0", "--port", "5000", "app.main:app"]
